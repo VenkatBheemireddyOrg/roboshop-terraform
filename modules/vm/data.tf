@@ -7,3 +7,7 @@ data "azurerm_subnet" "main" {
   virtual_network_name = "project-setup-network"  ### This is from your azure portal
   resource_group_name  = data.azurerm_resource_group.main.name
 }
+
+data "vault_generic_secret" "ssh" {
+  path = "infra/ssh"
+}
