@@ -5,4 +5,5 @@ module "components" {
   vm_size     = each.value["vm_size"]
   env         = var.env
   vault_token = var.token
+  container   = each.value["container"] #this code is added for docker container
 }
