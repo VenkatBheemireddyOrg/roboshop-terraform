@@ -16,8 +16,5 @@ resource "azurerm_kubernetes_cluster" "main" {
 
   identity {
     type = "SystemAssigned"
-
   }
-
 }
-
