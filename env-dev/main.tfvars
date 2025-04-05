@@ -1,64 +1,54 @@
 env = "dev"
-components = {
 
+components = {
   frontend = {
-    name      = "frontend"
-    vm_size   = "Standard_DS1_v2"
-    container = true
+    name = "frontend"
+    size = "Standard_DS1_v2"
   }
 
   mongodb = {
-    name      = "mongodb"
-    vm_size   = "Standard_DS1_v2"
-    container = false
+    name = "mongodb"
+    size = "Standard_DS1_v2"
   }
 
   catalogue = {
-    name      = "catalogue"
-    vm_size   = "Standard_DS1_v2"
-    container = true
+    name = "catalogue"
+    size = "Standard_DS1_v2"
   }
 
   user = {
-    name      = "user"
-    vm_size   = "Standard_DS1_v2"
-    container = true
+    name = "user"
+    size = "Standard_DS1_v2"
   }
 
   cart = {
-    name      = "cart"
-    vm_size   = "Standard_DS1_v2"
-    container = true
+    name = "cart"
+    size = "Standard_DS1_v2"
   }
 
   mysql = {
-    name      = "mysql"
-    vm_size   = "Standard_DS1_v2"
-    container = false
+    name = "mysql"
+    size = "Standard_DS1_v2"
   }
 
   shipping = {
-    name      = "shipping"
-    vm_size   = "Standard_DS1_v2"
-    container = true
+    name = "shipping"
+    size = "Standard_DS1_v2"
   }
 
   payment = {
-    name      = "payment"
-    vm_size   = "Standard_DS1_v2"
-    container = true
+    name = "payment"
+    size = "Standard_DS1_v2"
   }
 
   rabbitmq = {
-    name      = "rabbitmq"
-    vm_size   = "Standard_DS1_v2"
-    container = false
+    name = "rabbitmq"
+    size = "Standard_DS1_v2"
   }
 
   redis = {
-    name      = "redis"
-    vm_size   = "Standard_DS1_v2"
-    container = false
+    name = "redis"
+    size = "Standard_DS1_v2"
   }
-}
 
+}
