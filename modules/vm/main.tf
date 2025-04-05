@@ -92,8 +92,8 @@ resource "azurerm_virtual_machine" "main" {
   }
   os_profile {
     computer_name  = var.component
-    admin_username = "venkat"
-    admin_password = "Devops123456"
+    admin_username = "testadmin"
+    admin_password = "Password1234!"
   }
   os_profile_linux_config {
     disable_password_authentication = false
@@ -124,7 +124,8 @@ resource "null_resource" "ansible" {
     inline = [
       "sudo dnf install python3.12-pip -y",
       "sudo pip3.12 install ansible",
-      "ansible-pull -i localhost, -U https://github.com/raghudevopsb82/roboshop-ansible roboshop.yml -e app_name=${var.component} -e ENV=${var.env}"
+      "ansible-pull -i localhost, -U https://github.com/VenkatBheemireddy/roboshop-ansible.git roboshop.yml -e appl=${var.component} -e ENV=${var.env}"
+    # "ansible-pull -i localhost, -U https://github.com/raghudevopsb82/roboshop-ansible roboshop.yml -e app_name=${var.component} -e ENV=${var.env}"
     ]
   }
 }
