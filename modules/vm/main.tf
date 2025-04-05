@@ -63,7 +63,6 @@ resource "azurerm_dns_a_record" "main" {
 }
 
 
-
 ### Create virtual machine for each component
 resource "azurerm_virtual_machine" "main" {
   depends_on            = [azurerm_network_interface_security_group_association.main, azurerm_dns_a_record.main]
@@ -129,3 +128,4 @@ resource "null_resource" "ansible" {
     ]
   }
 }
+

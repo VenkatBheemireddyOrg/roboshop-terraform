@@ -8,6 +8,7 @@ provider "azurerm" {
 }
 
 
+
 # provider "vault" {
 #   address = "http://vault-internal.azdevopsv82.online:8200"
 #   token   = var.token
