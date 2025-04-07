@@ -92,8 +92,13 @@ resource "azurerm_virtual_machine" "main" {
   }
   os_profile {
     computer_name  = var.component
-    admin_username = "testadmin"
-    admin_password = "Password1234!"
+  # admin_username = "testadmin"
+  # admin_password = "Password1234!"
+
+    #fetching username and password through data
+    admin_username = data.vault_generic_secret.ssh.data["admin_username"]
+    admin_password = data.vault_generic_secret.ssh.data["admin_password"]
+
   }
   os_profile_linux_config {
     disable_password_authentication = false
@@ -116,16 +121,19 @@ resource "null_resource" "ansible" {
     # To establish connection to remote machine
     connection {
       type     = "ssh"
-      user     = "testadmin"
-      password = "Password1234!"
+      # user     = "testadmin"
+      # password = "Password1234!"
+
+      user     = data.vault_generic_secret.ssh.data["admin_username"]
+      password = data.vault_generic_secret.ssh.data["admin_password"]
       host     = azurerm_public_ip.main.ip_address
     }
 
     inline = [
       "sudo dnf install python3.12-pip -y",
       "sudo pip3.12 install ansible hvac",
-      "ansible-pull -i localhost, -U https://github.com/VenkatBheemireddy/project-roboshop-ansible-env roboshop.yml -e app_name=${var.component} -e ENV=${var.env}"
-    # "ansible-pull -i localhost, -U https://github.com/VenkatBheemireddy/roboshop-ansible.git roboshop.yml -e appl=${var.component} -e ENV=${var.env}"
+    # "ansible-pull -i localhost, -U https://github.com/VenkatBheemireddy/project-roboshop-ansible-env roboshop.yml -e app_name=${var.component} -e ENV=${var.env}"
+      "ansible-pull -i localhost, -U https://github.com/VenkatBheemireddy/roboshop-ansible roboshop.yml -e appl=${var.component} -e ENV=${var.env}"
     # "ansible-pull -i localhost, -U https://github.com/raghudevopsb82/roboshop-ansible roboshop.yml -e app_name=${var.component} -e ENV=${var.env}"
     ]
   }
