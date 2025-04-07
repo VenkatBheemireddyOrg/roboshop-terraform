@@ -10,6 +10,6 @@ data "azurerm_subnet" "main" {
 
 #data block to retrieve secret from vault
 data "vault_generic_secret" "ssh" {
-  path = "infra.ssh"
+  path = "infra/ssh"
 }
 
