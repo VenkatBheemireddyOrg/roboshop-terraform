@@ -108,6 +108,11 @@ resource "azurerm_virtual_machine" "main" {
   }
 }
 
+# condition ? true : false
+locals {
+  component = var.container ? "${var.component}-docker" : var.component
+}
+
 ### Running provisioner outside virtual machine code block for each component
 ### Else it will destroy and re-create the resources when we perform terraform apply
 resource "null_resource" "ansible" {
@@ -132,11 +137,8 @@ resource "null_resource" "ansible" {
     inline = [
       "sudo dnf install python3.12-pip -y",
       "sudo pip3.12 install ansible hvac",
-    # "ansible-pull -i localhost, -U https://github.com/VenkatBheemireddy/project-roboshop-ansible-env roboshop.yml -e app_name=${var.component} -e ENV=${var.env}"
 
-      "ansible-pull -i localhost, -U https://github.com/VenkatBheemireddy/roboshop-ansible roboshop.yml -e app_name=${var.component} -e ENV=${var.env} -e vault_token=${var.vault_token}"
-
-    # "ansible-pull -i localhost, -U https://github.com/raghudevopsb82/roboshop-ansible roboshop.yml -e app_name=${var.component} -e ENV=${var.env}"
+      "ansible-pull -i localhost, -U https://github.com/VenkatBheemireddy/roboshop-ansible roboshop.yml -e app_name=${local.component} -e ENV=${var.env} -e vault_token=${var.vault_token}"
     ]
   }
 }
