@@ -10,7 +10,7 @@ components = {
   mongodb = {
     name = "mongodb"
     vm_size = "Standard_DS1_v2"
-    container = true
+    container = false
   }
 
   catalogue = {
@@ -34,7 +34,7 @@ components = {
   mysql = {
     name = "mysql"
     vm_size = "Standard_DS1_v2"
-    container = true
+    container = false
   }
 
   shipping = {
@@ -52,13 +52,13 @@ components = {
   rabbitmq = {
     name = "rabbitmq"
     vm_size = "Standard_DS1_v2"
-    container = true
+    container = false
   }
 
   redis = {
     name = "redis"
     vm_size = "Standard_DS1_v2"
-    container = true
+    container = false
   }
 
 }
