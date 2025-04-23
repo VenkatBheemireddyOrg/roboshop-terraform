@@ -1,6 +1,7 @@
 variable "env" {}  #done
-variable "components" {}
+#variable "components" {}
 variable "token" {}
+variable "databases" {}
 
 
 
