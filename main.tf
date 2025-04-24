@@ -9,10 +9,10 @@
 #   container = each.value["container"]
 # }
 
-### code to create aks cluster
-# module "aks" {
-#   source = "./modules/aks"
-# }
+## code to create aks cluster
+module "aks" {
+  source = "./modules/aks"
+}
 
 ### code to create databases
 module "databases" {
