@@ -10,9 +10,9 @@
 # }
 
 ### code to create aks cluster
-module "aks" {
-  source = "./modules/aks"
-}
+# module "aks" {
+#   source = "./modules/aks"
+# }
 
 ### code to create databases
 module "databases" {
