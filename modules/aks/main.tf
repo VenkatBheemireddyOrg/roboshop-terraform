@@ -18,18 +18,19 @@ resource "azurerm_kubernetes_cluster" "main" {
 
     ### BEG CR24042025 - Code to create aks cluster under project-setup-1 network
     vnet_subnet_id = "/subscriptions/9af0e83a-d3ee-4c3c-a244-3274a3457024/resourceGroups/project-setup-1/providers/Microsoft.Network/virtualNetworks/project-setup-network/subnets/default"
-
-    aci_connector_linux {
-      subnet_name = "/subscriptions/9af0e83a-d3ee-4c3c-a244-3274a3457024/resourceGroups/project-setup-1/providers/Microsoft.Network/virtualNetworks/project-setup-network/subnets/default"
-    }
-
-    network_profile {
-      network_plugin = "azure"
-      service_cidr = "10.100.0.0/24"
-      dns_service_ip = "10.100.0.100"
-    }
     ### END CR24042025 - Code to create aks cluster under project-setup-1 network
   }
+
+  ### BEG CR24042025 - Code to create aks cluster under project-setup-1 network
+  aci_connector_linux {
+    subnet_name = "/subscriptions/9af0e83a-d3ee-4c3c-a244-3274a3457024/resourceGroups/project-setup-1/providers/Microsoft.Network/virtualNetworks/project-setup-network/subnets/default"
+  }
+  network_profile {
+    network_plugin = "azure"
+    service_cidr = "10.100.0.0/24"
+    dns_service_ip = "10.100.0.100"
+  }
+  ### END CR24042025 - Code to create aks cluster under project-setup-1 network
 
   identity {
     type = "SystemAssigned"
