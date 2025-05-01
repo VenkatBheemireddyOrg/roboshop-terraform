@@ -28,8 +28,32 @@ resource "null_resource" "external-secrets" {
 #   depends_on = [null_resource.kubeconfig]
 #   provisioner "local-exec" {
 #     command = <<EOF
-# kubectl apply -f ${path.module}/files/argocd-ns.yaml
-# kubectl apply -f ${path.module}/files/argocd.yaml -n argocd
-# EOF
+#        kubectl apply -f ${path.module}/files/argocd-ns.yaml
+#        kubectl apply -f ${path.module}/files/argocd.yaml -n argocd
+#     EOF
 #   }
 # }
+
+# ## ArgoCD Setup
+# resource "helm_release" "argocd" {
+#   depends_on = [null_resource.kubeconfig, helm_release.external-dns]
+#
+#   name             = "argocd"
+#   repository       = "https://argoproj.github.io/argo-helm"
+#   chart            = "argo-cd"
+#   namespace        = "argocd"
+#   create_namespace = true
+#   wait             = false
+#
+#   set {
+#     name  = "global.domain"
+#     value = "argocd-${var.env}.azdevopsv82.online"
+#   }
+#
+#   values = [
+#     file("${path.module}/files/argo-helm.yml")
+#   ]
+# }
+
+
+
