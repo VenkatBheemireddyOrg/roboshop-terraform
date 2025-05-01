@@ -24385,7 +24385,7 @@ spec:
       targetPort: 8084
   selector:
     app.kubernetes.io/name: argocd-repo-server
---- ### We need to make changes here as the service needs to be configured as LoadBalancer
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -24395,7 +24395,7 @@ metadata:
     app.kubernetes.io/part-of: argocd
   name: argocd-server
 spec:
-  type: LoadBalancer  ### so that we can access it to the outside world
+  type: LoadBalancer
   ports:
     - name: http
       port: 80
@@ -24594,7 +24594,7 @@ spec:
                   key: applicationsetcontroller.requeue.after
                   name: argocd-cmd-params-cm
                   optional: true
-          image: quay.io/argoproj/argocd:v2.14.2
+          image: quay.io/argoproj/argocd:v2.14.6
           imagePullPolicy: Always
           name: argocd-applicationset-controller
           ports:
@@ -24731,7 +24731,7 @@ spec:
             - -n
             - /usr/local/bin/argocd
             - /shared/argocd-dex
-          image: quay.io/argoproj/argocd:v2.14.2
+          image: quay.io/argoproj/argocd:v2.14.6
           imagePullPolicy: Always
           name: copyutil
           securityContext:
@@ -24821,7 +24821,7 @@ spec:
                   key: notificationscontroller.repo.server.plaintext
                   name: argocd-cmd-params-cm
                   optional: true
-          image: quay.io/argoproj/argocd:v2.14.2
+          image: quay.io/argoproj/argocd:v2.14.6
           imagePullPolicy: Always
           livenessProbe:
             tcpSocket:
@@ -24923,7 +24923,7 @@ spec:
             - argocd
             - admin
             - redis-initial-password
-          image: quay.io/argoproj/argocd:v2.14.2
+          image: quay.io/argoproj/argocd:v2.14.6
           imagePullPolicy: IfNotPresent
           name: secret-init
           securityContext:
@@ -25184,7 +25184,7 @@ spec:
               value: /helm-working-dir
             - name: HELM_DATA_HOME
               value: /helm-working-dir
-          image: quay.io/argoproj/argocd:v2.14.2
+          image: quay.io/argoproj/argocd:v2.14.6
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -25236,7 +25236,7 @@ spec:
             - -n
             - /usr/local/bin/argocd
             - /var/run/argocd/argocd-cmp-server
-          image: quay.io/argoproj/argocd:v2.14.2
+          image: quay.io/argoproj/argocd:v2.14.6
           name: copyutil
           securityContext:
             allowPrivilegeEscalation: false
@@ -25596,7 +25596,7 @@ spec:
                   key: hydrator.enabled
                   name: argocd-cmd-params-cm
                   optional: true
-          image: quay.io/argoproj/argocd:v2.14.2
+          image: quay.io/argoproj/argocd:v2.14.6
           imagePullPolicy: Always
           livenessProbe:
             httpGet:
@@ -25950,7 +25950,7 @@ spec:
                   optional: true
             - name: KUBECACHEDIR
               value: /tmp/kubecache
-          image: quay.io/argoproj/argocd:v2.14.2
+          image: quay.io/argoproj/argocd:v2.14.6
           imagePullPolicy: Always
           name: argocd-application-controller
           ports:
