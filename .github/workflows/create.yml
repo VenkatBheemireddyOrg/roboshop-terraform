@@ -5,6 +5,8 @@ jobs:
       runs-on: self-hosted
       steps:
         - uses: actions/checkout@v4
-        - run: make dev-apply vault_token=$(vault_token)
-          env:
-            vault_token: ${{ secrets.VAULT_TOKEN }}  #We need to add terraform code in runner
+        - run: ls -l
+
+#        - run: make dev-apply vault_token=$(vault_token)
+#          env:
+#            vault_token: ${{ secrets.VAULT_TOKEN }}  #We need to add terraform code in runner
