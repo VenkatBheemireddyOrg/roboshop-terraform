@@ -6,7 +6,7 @@ jobs:
       steps:
         - uses: actions/checkout@v4  # ==> this code is to check out from the workflow repository
      #  - run: ls -l
-        - run: make identity-login   # to make identity login
+#        - run: make identity-login   # to make identity login
         - run: make dev-destroy vault_token=${vault_token}  # create GitHub secret here
           env:
             vault_token: ${{ secrets.VAULT_TOKEN }}  #We need to add terraform code in runner
