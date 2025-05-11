@@ -22,7 +22,7 @@ resource "null_resource" "external-secrets" {
 
     ###BEG 20250511 added code as part of github-runner workflow
     # kubectl apply -f /opt/vault-token.yml
-    kubectl create secret vault-token --from-literal=token=${var.vault_token}
+    kubectl create secret generic vault-token --from-literal=token=${var.vault_token}
     ###END 20250511 added code as part of github-runner workflow
     EOF
   }
