@@ -14,7 +14,7 @@ module "aks" {
   source = "./modules/aks"
 }
 
-### code to create databases
+### code to create databases - mongodb, mysql, rabbitmq, redis
 module "databases" {
   for_each = var.databases
   source = "./modules/vm"

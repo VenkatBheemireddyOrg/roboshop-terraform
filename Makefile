@@ -22,5 +22,5 @@ prod-destroy:
 	terraform init -backend-config=./env-prod/state.tfvars
 	terraform destroy -auto-approve -var-file=env-prod/main.tfvars -var token=$(vault_token)
 
-identity-login:
-	az login --identity
+#identity-login:
+#	az login --identity
