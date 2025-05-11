@@ -18,6 +18,6 @@ jobs:
           env:
             vault_token: ${{ secrets.VAULT_TOKEN }}
 
-        - run: make dev-apply vault_token=${vault_token}  # create GitHub secret here
+        - run: make dev-destroy vault_token=${vault_token}  # create GitHub secret here
           env:
             vault_token: ${{ secrets.VAULT_TOKEN }}  #We need to add terraform code in runner
