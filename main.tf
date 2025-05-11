@@ -12,6 +12,10 @@
 ## code to create aks cluster
 module "aks" {
   source = "./modules/aks"
+
+  ###BEG 20250511 added code as part of github-runner workflow
+  vault_token = var.token
+  ###END 20250511 added code as part of github-runner workflow
 }
 
 ### code to create databases - mongodb, mysql, rabbitmq, redis
