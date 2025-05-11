@@ -24,3 +24,4 @@ prod-destroy:
 
 #identity-login:
 #	az login --identity
+
