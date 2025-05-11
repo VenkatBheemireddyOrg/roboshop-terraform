@@ -18,13 +18,17 @@ resource "helm_release" "external-secrets" {
 resource "null_resource" "external-secrets" {
   depends_on = [helm_release.external-secrets]
   provisioner "local-exec" {
-    command = <<EOF
+    ###BEG 20250511 added code as part of github-runner workflow
+    #   command = <<EOF
+    #   kubectl apply -f /opt/vault-token.yml
+    #   EOF
+    ###END 20250511 added code as part of github-runner workflow
 
     ###BEG 20250511 added code as part of github-runner workflow
-    # kubectl apply -f /opt/vault-token.yml
+    command = <<EOF
     kubectl create secret generic vault-token --from-literal=token=${var.vault_token}
-    ###END 20250511 added code as part of github-runner workflow
     EOF
+    ###END 20250511 added code as part of github-runner workflow
   }
 }
 
