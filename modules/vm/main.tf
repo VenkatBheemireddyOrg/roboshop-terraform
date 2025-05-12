@@ -138,7 +138,7 @@ resource "null_resource" "ansible" {
       "sudo dnf install python3.12-pip -y",
       "sudo pip3.12 install ansible hvac",
 
-      "ansible-pull -i localhost, -U https://github.com/VenkatBheemireddy/roboshop-ansible roboshop.yml -e app_name=${local.component} -e ENV=${var.env} -e vault_token=${var.vault_token}"
+      "ansible-pull -i localhost, -U https://github.com/VenkatBheemireddyOrg/roboshop-ansible roboshop.yml -e app_name=${local.component} -e ENV=${var.env} -e vault_token=${var.vault_token}"
     ]
   }
 }
