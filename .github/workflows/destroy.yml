@@ -1,0 +1,22 @@
+name: Destroy - Terraform
+on: workflow_dispatch
+jobs:
+  apply:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4  # ==> this code is to check out from the workflow repository
+
+      - name: Retrieve Vault Secrets
+        id: import-secrets
+        uses: hashicorp/vault-action@v2
+        with:
+          url: http://vault-internal.azdevopsv82.online:8200
+          token: ${{ secrets.VAULT_TOKEN }}
+          secrets: |
+            infra/github-actions *;
+        env:
+          vault_token: ${{ secrets.VAULT_TOKEN }}
+
+      - run: make dev-destroy vault_token=${vault_token}  # create GitHub secret here
+        env:
+          vault_token: ${{ secrets.VAULT_TOKEN }}  #We need to add terraform code in runner
