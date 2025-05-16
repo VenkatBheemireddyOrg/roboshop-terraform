@@ -22,6 +22,7 @@ resource "null_resource" "external-secrets" {
     command = <<EOF
 kubectl create secret generic vault-token --from-literal=token=${var.vault_token}
 kubectl apply -f ${path.module}/files/secretstore.yaml
+EOF
   }
 }
 
