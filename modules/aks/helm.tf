@@ -20,7 +20,7 @@ resource "null_resource" "external-secrets" {
   provisioner "local-exec" {
     ###BEG 20250511 added code as part of github-runner workflow
     command = <<EOF
-       kubectl create secret generic vault-token --from-literal=token=${var.vault_token}
+       kubectl create secret generic vault-token --from-literal=token=${var.vault_token} --namespace kube-system
        kubectl apply -f ${path.module}/files/secretstore.yaml
     EOF
     ###END 20250511 added code as part of github-runner workflow
