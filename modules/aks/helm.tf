@@ -33,6 +33,7 @@ resource "null_resource" "external-secrets" {
   }
 }
 
+
 resource "null_resource" "argocd" {
   depends_on = [null_resource.kubeconfig]
   provisioner "local-exec" {
