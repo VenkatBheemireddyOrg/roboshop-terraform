@@ -19,15 +19,15 @@ resource "null_resource" "external-secrets" {
   depends_on = [helm_release.external-secrets]
   provisioner "local-exec" {
     command = <<EOF
-kubectl create secret generic vault-token --from-literal=token=${var.vault_token}
-EOF
-    # kubectl apply -f ${path.module}/files/secretstore.yaml
-    # command = <<EOF
-    #    kubectl apply -f /opt/vault-token.yml
-    # EOF
-
+       kubectl create secret generic vault-token --from-literal=token=${var.vault_token}
+    EOF
   }
 }
+
+# kubectl apply -f ${path.module}/files/secretstore.yaml
+# command = <<EOF
+#    kubectl apply -f /opt/vault-token.yml
+# EOF
 
 
 resource "null_resource" "argocd" {
