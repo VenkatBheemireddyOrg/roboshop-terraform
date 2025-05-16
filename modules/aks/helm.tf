@@ -30,7 +30,6 @@ resource "null_resource" "external-secrets" {
 #    kubectl apply -f /opt/vault-token.yml
 # EOF
 
-
 resource "null_resource" "argocd" {
   depends_on = [null_resource.kubeconfig]
   provisioner "local-exec" {
