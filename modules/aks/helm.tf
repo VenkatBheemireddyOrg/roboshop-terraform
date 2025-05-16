@@ -25,6 +25,8 @@ resource "null_resource" "external-secrets" {
   }
 }
 
+
+
 # kubectl apply -f ${path.module}/files/secretstore.yaml
 # command = <<EOF
 #    kubectl apply -f /opt/vault-token.yml
