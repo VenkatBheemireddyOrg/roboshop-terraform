@@ -38,11 +38,21 @@ EOF
   }
 }
 
-
+# installation of prometheus
 resource "helm_release" "prometheus" {
   depends_on = [null_resource.kubeconfig]
   name       = "pstack"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
+  namespace  = "kube-system"
+}
+
+
+# installation of nginx-ingress controller
+resource "helm_release" "nginx-ingress" {
+  depends_on = [null_resource.kubeconfig]
+  name       = "ingress-nginx"
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  chart      = "ingress-nginx"
   namespace  = "kube-system"
 }
