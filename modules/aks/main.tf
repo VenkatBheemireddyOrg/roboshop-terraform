@@ -7,12 +7,12 @@ resource "azurerm_kubernetes_cluster" "main" {
 
   default_node_pool {
     name       = "default"
-    node_count = 1
+    node_count = 2
     vm_size    = "Standard_D2_v2"
 
     ### BEG CR24042025 - Code to enable aks "Cluster Autoscaling" or "Node Autoscaling"
     auto_scaling_enabled = true
-    min_count            = 1
+    min_count            = 2
     max_count            = 10
     ### END CR24042025 - Code to enable aks "Cluster Autoscaling" or "Node Autoscaling"
 
