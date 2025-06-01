@@ -35,6 +35,15 @@ resource "azurerm_kubernetes_cluster" "main" {
   identity {
     type = "SystemAssigned"
   }
+
+  lifecycle {
+    ignore_changes = [
+      # Ignore changes to tags, e.g. because a management agent
+      # updates these based on some ruleset managed elsewhere.
+      #default_node_pool,
+    ]
+  }
+
 }
 
 resource "azurerm_role_assignment" "aks-to-acr" {
