@@ -46,5 +46,3 @@ resource "helm_release" "prometheus" {
   chart      = "kube-prometheus-stack"
   namespace  = "kube-system"
 }
-
-
