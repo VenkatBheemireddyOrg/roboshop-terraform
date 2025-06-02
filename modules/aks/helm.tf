@@ -49,10 +49,21 @@ resource "helm_release" "prometheus" {
 
 
 # installation of nginx-ingress controller
-resource "helm_release" "nginx-ingress" {
-  depends_on = [null_resource.kubeconfig]
-  name       = "ingress-nginx"
-  repository = "https://kubernetes.github.io/ingress-nginx"
-  chart      = "ingress-nginx"
-  namespace  = "kube-system"
-}
+# This chart is not working - https://github.com/kubernetes/ingress-nginx/issues/10863
+# resource "helm_release" "nginx-ingress" {
+#   depends_on = [null_resource.kubeconfig]
+#   name       = "ingress-nginx"
+#   repository = "https://kubernetes.github.io/ingress-nginx"
+#   chart      = "ingress-nginx"
+#   namespace  = "kube-system"
+# }
+
+
+# resource "null_resource" "nginx-ingress" {
+#   depends_on = [null_resource.kubeconfig]
+#   provisioner "local-exec" {
+#     command = <<EOF
+#  kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/cloud/deploy.yaml
+# EOF
+#   }
+# }
