@@ -59,11 +59,11 @@ resource "helm_release" "prometheus" {
 # }
 
 
-# resource "null_resource" "nginx-ingress" {
-#   depends_on = [null_resource.kubeconfig]
-#   provisioner "local-exec" {
-#     command = <<EOF
-#  kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/cloud/deploy.yaml
-# EOF
-#   }
-# }
+resource "null_resource" "nginx-ingress" {
+  depends_on = [null_resource.kubeconfig]
+  provisioner "local-exec" {
+    command = <<EOF
+ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/cloud/deploy.yaml
+EOF
+  }
+}
