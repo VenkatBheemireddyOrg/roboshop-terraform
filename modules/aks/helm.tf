@@ -67,3 +67,4 @@ resource "null_resource" "nginx-ingress" {
 EOF
   }
 }
+
