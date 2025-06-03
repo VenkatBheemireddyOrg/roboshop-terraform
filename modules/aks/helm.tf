@@ -93,14 +93,14 @@ EOT
 
 
 # installing external-dns installation, Step-3
-resource "helm_release" "external-dns" {
-  depends_on = [null_resource.kubeconfig]
-  name       = "external-dns"
-  repository = "https://kubernetes-sigs.github.io/external-dns/"
-  chart      = "external-dns"
-  namespace  = "kube-system"
-  values = [
-    file("${path.module}/files/external-dns.yaml")
-  ]
-}
+# resource "helm_release" "external-dns" {
+#   depends_on = [null_resource.kubeconfig]
+#   name       = "external-dns"
+#   repository = "https://kubernetes-sigs.github.io/external-dns/"
+#   chart      = "external-dns"
+#   namespace  = "kube-system"
+#   values = [
+#     file("${path.module}/files/external-dns.yaml")
+#   ]
+# }
 
