@@ -16,6 +16,7 @@ resource "helm_release" "external-secrets" {
   namespace  = "kube-system"
 }
 
+
 resource "null_resource" "external-secrets" {
   depends_on = [helm_release.external-secrets]
   provisioner "local-exec" {
@@ -25,8 +26,8 @@ kubectl apply -f ${path.module}/files/secretstore.yaml
 EOF
   }
 }
-
 #kubectl apply -f /opt/vault-token.yml
+
 
 resource "null_resource" "argocd" {
   depends_on = [null_resource.kubeconfig]
@@ -37,6 +38,7 @@ kubectl apply -f ${path.module}/files/argocd.yaml -n argocd
 EOF
   }
 }
+
 
 # installation of prometheus
 resource "helm_release" "prometheus" {
@@ -68,6 +70,7 @@ EOF
   }
 }
 
+
 resource "null_resource" "external-dns-secret" {
   depends_on = [null_resource.kubeconfig]
   provisioner "local-exec" {
@@ -85,6 +88,7 @@ kubectl create secret generic azure-config-file --namespace "kube-system" --from
 EOT
   }
 }
+
 
 resource "helm_release" "external-dns" {
   depends_on = [null_resource.kubeconfig, null_resource.external-dns-secret]
