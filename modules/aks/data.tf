@@ -9,3 +9,6 @@ data "azurerm_container_registry" "main" {
   resource_group_name = data.azurerm_resource_group.main.name
 }
 
+data "vault_generic_secret" "az" {
+  path = "infra/github-actions"
+}
