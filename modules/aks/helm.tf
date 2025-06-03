@@ -2,6 +2,8 @@ resource "null_resource" "kubeconfig" {
   depends_on = [azurerm_kubernetes_cluster.main]
   provisioner "local-exec" {
     command = <<EOF
+az login --service-principal --username ${data.vault_generic_secret.az.data["ARM_CLIENT_ID"]} --password ${data.vault_generic_secret.az.data["ARM_CLIENT_SECRET"]} --tenant ${data.vault_generic_secret.az.data["ARM_TENANT_ID"]}
+
 az aks get-credentials --resource-group ${data.azurerm_resource_group.main.name} --name main --overwrite-existing
 EOF
   }
@@ -81,7 +83,7 @@ cat <<-EOF > ${path.module}/azure.json
   "subscriptionId": "${data.azurerm_subscription.current.subscription_id}",
   "resourceGroup": "${data.azurerm_resource_group.main.name}",
   "useManagedIdentityExtension": true,
-  "userAssignedIdentityID": "${azurerm_kubernetes_cluster.main.kubelet_identity[0].object_id}"
+  "userAssignedIdentityID": "${azurerm_kubernetes_cluster.main.kubelet_identity[0].client_id}"
 }
 EOF
 kubectl create secret generic azure-config-file --namespace "kube-system" --from-file=${path.module}/azure.json
