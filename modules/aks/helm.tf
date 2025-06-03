@@ -9,7 +9,6 @@ EOF
   }
 }
 
-
 resource "helm_release" "external-secrets" {
   depends_on = [null_resource.kubeconfig]
   name       = "external-secrets"
@@ -17,7 +16,6 @@ resource "helm_release" "external-secrets" {
   chart      = "external-secrets"
   namespace  = "kube-system"
 }
-
 
 resource "null_resource" "external-secrets" {
   depends_on = [helm_release.external-secrets]
@@ -30,7 +28,6 @@ EOF
 }
 #kubectl apply -f /opt/vault-token.yml
 
-
 resource "null_resource" "argocd" {
   depends_on = [null_resource.kubeconfig]
   provisioner "local-exec" {
@@ -41,7 +38,6 @@ EOF
   }
 }
 
-
 # installation of prometheus
 resource "helm_release" "prometheus" {
   depends_on = [null_resource.kubeconfig]
@@ -50,7 +46,6 @@ resource "helm_release" "prometheus" {
   chart      = "kube-prometheus-stack"
   namespace  = "kube-system"
 }
-
 
 # installation of nginx-ingress controller
 # This chart is not working - https://github.com/kubernetes/ingress-nginx/issues/10863
@@ -62,7 +57,6 @@ resource "helm_release" "prometheus" {
 #   namespace  = "kube-system"
 # }
 
-
 resource "null_resource" "nginx-ingress" {
   depends_on = [null_resource.kubeconfig]
   provisioner "local-exec" {
@@ -71,6 +65,17 @@ resource "null_resource" "nginx-ingress" {
 EOF
   }
 }
+
+# resource "kubernetes_secret" "external-dns" {
+#   metadata {
+#     name = "external-dns-azure"
+#     namespace = "kube-system"
+#   }
+#   data = {
+#       "azure.json" = base64decode(data.vault_generic_secret.az.data["EXTERNAL_DNS_SECRET_B64"])
+#   }
+# }
+
 
 ###
 resource "null_resource" "external-dns-secret" {
@@ -91,8 +96,6 @@ EOT
   }
 }
 
-
-### installing external-dns installation, Step-3
 resource "helm_release" "external-dns" {
   depends_on = [null_resource.kubeconfig, null_resource.external-dns-secret]
   name       = "external-dns"
@@ -100,7 +103,7 @@ resource "helm_release" "external-dns" {
   chart      = "external-dns"
   namespace  = "kube-system"
   values = [
-    file("${path.module}/files/external-dns.yml")
+    file("${path.module}/files/external-dns.yaml")
   ]
 }
 
