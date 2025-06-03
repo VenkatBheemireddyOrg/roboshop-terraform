@@ -81,7 +81,7 @@ cat <<-EOF > ${path.module}/azure.json
   "subscriptionId": "${data.azurerm_subscription.current.subscription_id}",
   "resourceGroup": "${data.azurerm_resource_group.main.name}",
   "useManagedIdentityExtension": true,
-  "userAssignedIdentityID": "${azurerm_kubernetes_cluster.main.kubelet_identity[0].client_id}"
+  "userAssignedIdentityID": "${azurerm_kubernetes_cluster.main.kubelet_identity[0].object_id}"
 }
 EOF
 kubectl create secret generic azure-config-file --namespace "kube-system" --from-file=${path.module}/azure.json
