@@ -16,6 +16,9 @@ module "aks" {
   ###BEG 20250511 added code as part of github-runner workflow
   vault_token = var.token
   ###END 20250511 added code as part of github-runner workflow
+
+  subscription_id = var.subscription_id
+  virtual_network_name = "project-setup-network"
 }
 
 ### code to create databases - mongodb, mysql, rabbitmq, redis

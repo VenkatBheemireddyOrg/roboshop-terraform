@@ -17,13 +17,13 @@ resource "azurerm_kubernetes_cluster" "main" {
     ### END CR24042025 - Code to enable aks "Cluster Autoscaling" or "Node Autoscaling"
 
     ### BEG CR24042025 - Code to create aks cluster under project-setup-1 network
-    vnet_subnet_id = "/subscriptions/9af0e83a-d3ee-4c3c-a244-3274a3457024/resourceGroups/project-setup-1/providers/Microsoft.Network/virtualNetworks/project-setup-network/subnets/default"
+    vnet_subnet_id = "/subscriptions/9af0e83a-d3ee-4c3c-a244-3274a3457024/resourceGroups/project-setup-1/providers/Microsoft.Network/virtualNetworks/${var.virtual_network_name}/subnets/default"
     ### END CR24042025 - Code to create aks cluster under project-setup-1 network
   }
 
   ### BEG CR24042025 - Code to create aks cluster under project-setup-1 network
   aci_connector_linux {
-    subnet_name = "/subscriptions/9af0e83a-d3ee-4c3c-a244-3274a3457024/resourceGroups/project-setup-1/providers/Microsoft.Network/virtualNetworks/project-setup-network/subnets/default"
+    subnet_name = "/subscriptions/${var.subscription_id}/resourceGroups/project-setup-1/providers/Microsoft.Network/virtualNetworks/${var.virtual_network_name}/subnets/default"
   }
   network_profile {
     network_plugin = "azure"
