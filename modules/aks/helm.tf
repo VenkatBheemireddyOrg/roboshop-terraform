@@ -99,7 +99,7 @@ resource "helm_release" "external-dns" {
   chart      = "external-dns"
   namespace  = "kube-system"
   values = [
-    file("${path.module}/files/external-dns.yaml")
+    file("${path.module}/files/external-dns.yml")
   ]
 }
 
