@@ -96,3 +96,4 @@ resource "helm_release" "external-dns" {
     file("${path.module}/files/external-dns.yaml")
   ]
 }
+
