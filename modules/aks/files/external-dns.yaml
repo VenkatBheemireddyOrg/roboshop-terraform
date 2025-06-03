@@ -1,0 +1,18 @@
+extraVolumes:
+  - name: azure-config-file
+    secret:
+      secretName: azure-config-file
+
+extraVolumeMounts:
+  - name: azure-config-file
+    mountPath: /etc/kubernetes
+    readOnly: true
+
+provider: azure
+
+podLabels:
+  azure.workload.identity/use: "true"
+
+serviceAccount:
+  labels:
+    azure.workload.identity/use: "true"
