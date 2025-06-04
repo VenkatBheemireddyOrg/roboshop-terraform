@@ -106,3 +106,13 @@ resource "helm_release" "external-dns" {
     file("${path.module}/files/external-dns.yaml")
   ]
 }
+
+# resource "null_resource" "argocd" {
+#   depends_on = [null_resource.kubeconfig]
+#   provisioner "local-exec" {
+#     command = <<EOF
+# kubectl apply -f ${path.module}/files/argocd-ns.yaml
+# kubectl apply -f ${path.module}/files/argocd.yaml -n argocd
+# EOF
+#   }
+# }
