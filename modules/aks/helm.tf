@@ -102,9 +102,14 @@ resource "helm_release" "external-dns" {
   repository = "https://kubernetes-sigs.github.io/external-dns/"
   chart      = "external-dns"
   namespace  = "kube-system"
-  values = [
-    file("${path.module}/files/external-dns.yaml")
-  ]
+  # values = [
+  #   file("${path.module}/files/external-dns.yaml")
+  # ]
+  provisioner "local-exec" {
+     command = <<EOF
+         kubectl apply -f ${path.module}/files/external-dns.yaml
+     EOF
+  }
 }
 
 # resource "null_resource" "argocd" {
