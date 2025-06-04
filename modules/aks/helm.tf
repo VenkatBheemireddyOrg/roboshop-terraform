@@ -38,14 +38,28 @@ EOF
   }
 }
 
-# installation of prometheus
+### installation of prometheus
+# resource "helm_release" "prometheus" {
+#   depends_on = [null_resource.kubeconfig]
+#   name       = "pstack"
+#   repository = "https://prometheus-community.github.io/helm-charts"
+#   chart      = "kube-prometheus-stack"
+#   namespace  = "kube-system"
+# }
+
+
+### installation of prometheus and grafana as ingress
 resource "helm_release" "prometheus" {
   depends_on = [null_resource.kubeconfig]
   name       = "pstack"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
   namespace  = "kube-system"
+  values = [
+    file("${path.module}/files/prom-stack.yaml")
+  ]
 }
+
 
 # installation of nginx-ingress controller
 # This chart is not working - https://github.com/kubernetes/ingress-nginx/issues/10863
@@ -57,6 +71,8 @@ resource "helm_release" "prometheus" {
 #   namespace  = "kube-system"
 # }
 
+
+### Installation of nginx-ingress controller
 resource "null_resource" "nginx-ingress" {
   depends_on = [null_resource.kubeconfig]
   provisioner "local-exec" {
