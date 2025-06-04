@@ -48,7 +48,8 @@ EOF
 # }
 
 
-### installation of prometheus and grafana as ingress
+### Installation of prometheus and grafana as ingress
+### Grafana admin/passwd = admin/prom-operator
 resource "helm_release" "prometheus" {
   depends_on = [null_resource.kubeconfig]
   name       = "pstack"
