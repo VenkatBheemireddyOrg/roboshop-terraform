@@ -67,6 +67,29 @@ EOF
 }
 
 
+### Creating a configuration file (azure.json) for the kubelet identity
+### And use the azure.json file to create a Kubernetes secret
+# resource "null_resource" "external-dns-secret" {
+#   depends_on = [null_resource.kubeconfig]
+#   provisioner "local-exec" {
+#     command = <<EOT
+# cat <<-EOF > ${path.module}/azure.json
+# {
+#   "tenantId": "${data.azurerm_subscription.current.tenant_id}",
+#   "subscriptionId": "${data.azurerm_subscription.current.subscription_id}",
+#   "resourceGroup": "${data.azurerm_resource_group.main.name}",
+#   "useManagedIdentityExtension": true,
+#   "userAssignedIdentityID": "${azurerm_kubernetes_cluster.main.kubelet_identity[0].client_id}"
+# }
+# EOF
+# kubectl create secret generic azure-config-file --namespace "kube-system" --from-file=${path.module}/azure.json
+# EOT
+#   }
+# }
+
+
+### Creating a configuration file (azure.json) for the service principal
+### And use the azure.json file to create a Kubernetes secret
 resource "null_resource" "external-dns-secret" {
   depends_on = [null_resource.kubeconfig]
   provisioner "local-exec" {
@@ -86,33 +109,14 @@ EOT
 }
 
 
-###
-# resource "null_resource" "external-dns-secret" {
-#   depends_on = [null_resource.kubeconfig]
-#   provisioner "local-exec" {
-#     command = <<EOT
-# cat <<-EOF > ${path.module}/azure.json
-# {
-#   "tenantId": "${data.azurerm_subscription.current.tenant_id}",
-#   "subscriptionId": "${data.azurerm_subscription.current.subscription_id}",
-#   "resourceGroup": "${data.azurerm_resource_group.main.name}",
-#   "useManagedIdentityExtension": true,
-#   "userAssignedIdentityID": "${azurerm_kubernetes_cluster.main.kubelet_identity[0].client_id}"
-# }
-# EOF
-# kubectl create secret generic azure-config-file --namespace "kube-system" --from-file=${path.module}/azure.json
-# EOT
-#   }
-# }
-
-# resource "helm_release" "external-dns" {
-#   depends_on = [null_resource.kubeconfig, null_resource.external-dns-secret]
-#   name       = "external-dns"
-#   repository = "https://kubernetes-sigs.github.io/external-dns/"
-#   chart      = "external-dns"
-#   namespace  = "kube-system"
-#   values = [
-#     file("${path.module}/files/external-dns.yaml")
-#   ]
-# }
+resource "helm_release" "external-dns" {
+  depends_on = [null_resource.kubeconfig, null_resource.external-dns-secret]
+  name       = "external-dns"
+  repository = "https://kubernetes-sigs.github.io/external-dns/"
+  chart      = "external-dns"
+  namespace  = "kube-system"
+  values = [
+    file("${path.module}/files/external-dns.yaml")
+  ]
+}
 
