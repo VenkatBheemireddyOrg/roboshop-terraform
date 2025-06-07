@@ -48,8 +48,17 @@ EOF
 # }
 
 
-### Installation of prometheus and grafana as ingress
-### Grafana admin/passwd = admin/prom-operator
+### Installation of prometheus & grafana as ingress (Grafana admin/passwd = admin/prom-operator)
+# resource "helm_release" "prometheus" {
+#   depends_on = [null_resource.kubeconfig]
+#   name       = "pstack"
+#   repository = "https://prometheus-community.github.io/helm-charts"
+#   chart      = "kube-prometheus-stack"
+#   namespace  = "kube-system"
+#   values = [
+#     file("${path.module}/files/prom-stack.yaml")
+#   ]
+# }
 resource "helm_release" "prometheus" {
   depends_on = [null_resource.kubeconfig]
   name       = "pstack"
@@ -57,9 +66,18 @@ resource "helm_release" "prometheus" {
   chart      = "kube-prometheus-stack"
   namespace  = "kube-system"
   values = [
-    file("${path.module}/files/prom-stack.yaml")
+    #file("${path.module}/files/prom-stack.yaml"),
+    templatefile("${path.module}/files/prom-stack.yaml", {
+      tenant_id       = data.azurerm_subscription.current.tenant_id,
+      client_id       = data.vault_generic_secret.az.data["ARM_CLIENT_ID"],
+      client_secret   = data.vault_generic_secret.az.data["ARM_CLIENT_SECRET"],
+      subscription_id = data.azurerm_subscription.current.subscription_id,
+      resource_group  = data.azurerm_resource_group.main.name,
+      env             = var.env
+    })
   ]
 }
+
 
 
 # installation of nginx-ingress controller

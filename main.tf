@@ -19,17 +19,18 @@ module "aks" {
 
   subscription_id = var.subscription_id
   virtual_network_name = "project-setup-network"
+  env                  = var.env
 }
 
 ### code to create databases - mongodb, mysql, rabbitmq, redis
-# module "databases" {
-#   for_each = var.databases
-#   source = "./modules/vm"
-#   component = each.value["name"]
-#   vm_size = each.value["vm_size"]
-#   env = var.env
-#   vault_token  = var.token
-#   container = each.value["container"]
-# }
+module "databases" {
+  for_each = var.databases
+  source = "./modules/vm"
+  component = each.value["name"]
+  vm_size = each.value["vm_size"]
+  env = var.env
+  vault_token  = var.token
+  container = each.value["container"]
+}
 
 

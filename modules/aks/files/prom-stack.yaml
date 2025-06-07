@@ -5,7 +5,7 @@ grafana:
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /
     hosts:
-      - grafana-dev.azdevopsv82.online
+      - grafana-${env}.azdevopsv82.online
     path: /
 
 prometheus:
@@ -15,5 +15,18 @@ prometheus:
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /
     hosts:
-      - prometheus-dev.azdevopsv82.online
+      - prometheus-${env}.azdevopsv82.online
     path: /
+  prometheusSpec:
+    additionalScrapeConfigs: |
+      - job_name: 'azure-vms'
+        azure_sd_configs:
+          - tenant_id: ${tenant_id}
+            client_id: ${client_id}
+            client_secret: ${client_secret}
+            subscription_id: ${subscription_id}
+            resource_group: ${resource_group}
+            port: 9100
+            refresh_interval: 30s
+
+
