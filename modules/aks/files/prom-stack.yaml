@@ -28,6 +28,10 @@ prometheus:
             resource_group: ${resource_group}
             port: 9100
             refresh_interval: 30s
+            filters:
+              - name: 'tag:prometheus_scrape'
+                values: 
+                  - true
         relabel_configs:
           - source_labels: [__meta_azure_machine_id]
             target_label: id
