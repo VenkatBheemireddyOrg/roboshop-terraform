@@ -28,5 +28,27 @@ prometheus:
             resource_group: ${resource_group}
             port: 9100
             refresh_interval: 30s
-
+        relabel_configs:
+          - source_labels: [__meta_azure_machine_id]
+            target_label: id
+          - source_labels: [__meta_azure_machine_location]
+            target_label: location
+          - source_labels: [__meta_azure_machine_name]
+            target_label: name
+          - source_labels: [__meta_azure_machine_computer_name]
+            target_label: computer_name
+          - source_labels: [__meta_azure_machine_os_type]
+            target_label: os_type
+          - source_labels: [__meta_azure_machine_private_ip]
+            target_label: private_ip
+          - source_labels: [__meta_azure_machine_public_ip]
+            target_label: public_ip
+          - source_labels: [__meta_azure_machine_resource_group]
+            target_label: resource_group
+          - source_labels: [__meta_azure_machine_size]
+            target_label: size
+          - source_labels: [__meta_azure_subscription_id]
+            target_label: subscription_id
+          - source_labels: [__meta_azure_tenant_id]
+            target_label: tenant_id
 
