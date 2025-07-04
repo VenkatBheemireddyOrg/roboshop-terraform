@@ -1,17 +1,29 @@
 terraform {
   backend "azurerm" {}
-  required_providers {
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "2.35.0"
-    }
 
+  required_providers {
     grafana = {
       source = "grafana/grafana"
       version = "3.21.0"
     }
   }
 }
+
+
+# terraform {
+#   backend "azurerm" {}
+#   required_providers {
+#     kubernetes = {
+#       source  = "hashicorp/kubernetes"
+#       version = "2.35.0"
+#     }
+#
+#     grafana = {
+#       source = "grafana/grafana"
+#       version = "3.21.0"
+#     }
+#   }
+# }
 
 provider "azurerm" {
   features {}
@@ -28,7 +40,6 @@ provider "helm" {
     config_path = "~/.kube/config"
   }
 }
-
 
 ### this is required for external-dns step-1
 provider "kubernetes" {
