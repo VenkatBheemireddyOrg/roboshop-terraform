@@ -25,16 +25,15 @@ provider "vault" {
 
 provider "helm" {
   kubernetes {
-  config_path = "~/.kube/config"
+    config_path = "~/.kube/config"
   }
 }
 
 
 ### this is required for external-dns step-1
 provider "kubernetes" {
-    config_path = "~/.kube/config"
+  config_path = "~/.kube/config"
 }
-
 
 provider "grafana" {
   url  = "http://grafana-${var.env}.azdevopsv82.online/"
