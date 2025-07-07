@@ -1,0 +1,9 @@
+configs:
+  params:
+    server.insecure: true
+
+## For nginx ingress
+server:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
