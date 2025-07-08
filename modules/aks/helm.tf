@@ -52,7 +52,7 @@ resource "helm_release" "argocd" {
   create_namespace = true
   wait             = false
 
-  set {
+  set = {
     name  = "global.domain"
     value = "argocd-${var.env}.azdevopsv82.online"
   }
