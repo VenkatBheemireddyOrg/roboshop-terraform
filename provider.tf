@@ -28,12 +28,17 @@ terraform {
 provider "azurerm" {
   features {}
   subscription_id = var.subscription_id
+  tenant_id       = var.tenant_id
+  client_id       = var.client_id
+  client_secret   = var.client_secret
 }
+
 
 provider "vault" {
   address = "http://vault-internal.azdevopsv82.online:8200"
   token   = var.token
 }
+
 
 provider "helm" {
   kubernetes {
@@ -41,10 +46,12 @@ provider "helm" {
   }
 }
 
+
 ### this is required for external-dns step-1
 provider "kubernetes" {
   config_path = "~/.kube/config"
 }
+
 
 provider "grafana" {
   url  = "http://grafana-${var.env}.azdevopsv82.online/"
